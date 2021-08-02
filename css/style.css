@@ -1,3 +1,10 @@
-body{
-    background-color: antiquewhite;
+body {
+  background-color: antiquewhite;
+  text-align: center;
+  font-family: "Roboto Mono", monospace;
+}
+
+h1 {
+  margin-top: 20px;
+  font-weight: 700;
 }

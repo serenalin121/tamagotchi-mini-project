@@ -106,8 +106,23 @@ class Game {
   }
 }
 
-const gameOver = () => console.log("hi"); // disable button,
+const button = document.querySelector(".btn");
+button.addEventListener("click", (e) => {
+  e.preventDefault();
+  const playerInput = document.querySelector(".name").value;
+  console.log(playerInput);
+  const gameOver = () => console.log("hi"); // disable button,
 
-const game = new Game(gameOver);
+  const game = new Game(gameOver);
+});
+
+// const playerInput = document.querySelector(".name").value;
+// console.log(playerInput);
+// const button = document.querySelector(".submit");
+// button.addEventListener("click", () => {
+//   const gameOver = () => console.log("hi"); // disable button,
+
+//   const game = new Game(gameOver);
+// });
 
 // after adding html, when user submit the name, the game start!
