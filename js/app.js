@@ -21,8 +21,6 @@
     - Increase your pet's age every x minutes
     - Increase your pet's Hunger, Sleepiness, and Bored metrics on an interval of your choosing.
 
-
-
 Instatiate my Tamagochi
 
 */
@@ -63,7 +61,7 @@ class Tamagotchi {
 
   increaseBoredom() {
     this.boredom++;
-    if (this.bordom > 9) {
+    if (this.boredom > 9) {
       this.death = true;
     }
   }
@@ -72,8 +70,8 @@ class Tamagotchi {
 let hasGameOver = false;
 
 class Game {
-  constructor(gameOverCallback) {
-    this.tamagotchi = new Tamagotchi("Test");
+  constructor(name, gameOverCallback) {
+    this.tamagotchi = new Tamagotchi(name);
     this.gameOverCallback = gameOverCallback;
     this.startGame();
   }
@@ -81,7 +79,8 @@ class Game {
   ageUp() {
     const time = setInterval(() => {
       this.tamagotchi.age++;
-      if (hasGameOver === true) {
+      document.querySelector(".age").innerText = this.tamagotchi.age;
+      if (this.tamagotchi.death === true) {
         clearInterval(time);
       }
     }, 1000);
@@ -106,23 +105,26 @@ class Game {
   }
 }
 
+// After the player enter the Tamagotchi's name, game begin!
 const button = document.querySelector(".btn");
 button.addEventListener("click", (e) => {
   e.preventDefault();
   const playerInput = document.querySelector(".name").value;
-  console.log(playerInput);
-  const gameOver = () => console.log("hi"); // disable button,
+  document.querySelector(".t-name").innerText = playerInput;
+  document.querySelector(".name").value = "";
+  const gameOver = () => {
+    console.log("Game Over");
+    document.querySelector(".feed").disabled = true;
+    document.querySelector(".sleep").disabled = true;
+    document.querySelector(".play").disabled = true;
+  }; // disable button,
 
-  const game = new Game(gameOver);
+  const game = new Game(playerInput, gameOver);
 });
 
-// const playerInput = document.querySelector(".name").value;
-// console.log(playerInput);
-// const button = document.querySelector(".submit");
-// button.addEventListener("click", () => {
-//   const gameOver = () => console.log("hi"); // disable button,
+/*
+- where should I track and show hunger, sleepiness, boredom? (a function?)
+- where should I track actions
 
-//   const game = new Game(gameOver);
-// });
 
-// after adding html, when user submit the name, the game start!
+*/

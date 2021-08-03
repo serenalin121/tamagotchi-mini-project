@@ -22,8 +22,22 @@
     <form class="my-3 form">
       <label for="name">What's name of your Tamagotchi?</label>
       <input type="text" class="name" name="name" placeholder="name" required />
-      <button type="submit" class="btn btn-primary submit">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <div>
+      <h2 class="t-name"></h2>
+      <h3 class="t-age">Age: <span class="age"></span> years old</h3>
+      <ul class="t-details">
+        <li>Hunger: <span class="hunger"></span></li>
+        <li>Sleepiness: <span class="sleepiness"></span></li>
+        <li>Boredom: <span class="boredom"></span></li>
+      </ul>
+    </div>
+    <div>
+      <button class="feed action btn btn-warning">Feed</button>
+      <button class="sleep action btn btn-success">Sleep</button>
+      <button class="play action btn btn-info">Play</button>
+    </div>
     <script src="js/app.js"></script>
   </body>
 </html>
