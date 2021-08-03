@@ -92,6 +92,7 @@ class Game {
       this.tamagotchi.increaseSleepiness();
       this.tamagotchi.increaseBoredom();
       console.log(this.tamagotchi);
+      this.showAttr();
       if (this.tamagotchi.death === true) {
         clearInterval(daily);
         this.gameOverCallback();
@@ -99,12 +100,37 @@ class Game {
     }, 1000);
   }
 
+  showAttr() {
+    const hunger = document.querySelector(".hunger");
+    hunger.innerText = this.tamagotchi.hunger;
+    const sleepiness = document.querySelector(".sleepiness");
+    sleepiness.innerText = this.tamagotchi.sleepiness;
+    const boredom = document.querySelector(".boredom");
+    boredom.innerText = this.tamagotchi.boredom;
+  }
+
   startGame() {
     this.ageUp();
     this.dailyLife();
+    this.toFeed();
+    this.toSleep();
+    this.toPlay();
   }
 
-  // action buttons
+  toFeed() {
+    const feed = document.querySelector(".feed");
+    feed.addEventListener("click", () => this.tamagotchi.feed());
+  }
+
+  toSleep() {
+    const sleep = document.querySelector(".sleep");
+    sleep.addEventListener("click", () => this.tamagotchi.sleep());
+  }
+
+  toPlay() {
+    const play = document.querySelector(".play");
+    play.addEventListener("click", () => this.tamagotchi.play());
+  }
 }
 
 // After the player enter the Tamagotchi's name, game begin!
@@ -123,10 +149,3 @@ button.addEventListener("click", (e) => {
 
   const game = new Game(playerInput, gameOver);
 });
-
-/*
-- where should I track and show hunger, sleepiness, boredom? (a function?)
-- where should I track actions
-
-
-*/
