@@ -83,7 +83,7 @@ class Game {
       if (this.tamagotchi.death === true) {
         clearInterval(time);
       }
-    }, 1000);
+    }, 2000);
   }
 
   dailyLife() {
@@ -92,7 +92,6 @@ class Game {
       this.tamagotchi.increaseSleepiness();
       this.tamagotchi.increaseBoredom();
       console.log(this.tamagotchi);
-      this.showAttr();
       if (this.tamagotchi.death === true) {
         clearInterval(daily);
         this.gameOverCallback();
@@ -100,18 +99,24 @@ class Game {
     }, 1000);
   }
 
-  showAttr() {
-    const hunger = document.querySelector(".hunger");
-    hunger.innerText = this.tamagotchi.hunger;
-    const sleepiness = document.querySelector(".sleepiness");
-    sleepiness.innerText = this.tamagotchi.sleepiness;
-    const boredom = document.querySelector(".boredom");
-    boredom.innerText = this.tamagotchi.boredom;
+  showDetails() {
+    const details = setInterval(() => {
+      const hunger = document.querySelector(".hunger");
+      hunger.innerText = this.tamagotchi.hunger;
+      const sleepiness = document.querySelector(".sleepiness");
+      sleepiness.innerText = this.tamagotchi.sleepiness;
+      const boredom = document.querySelector(".boredom");
+      boredom.innerText = this.tamagotchi.boredom;
+      if (this.tamagotchi.death === true) {
+        clearInterval(details);
+      }
+    }, 500);
   }
 
   startGame() {
     this.ageUp();
     this.dailyLife();
+    this.showDetails();
     this.toFeed();
     this.toSleep();
     this.toPlay();

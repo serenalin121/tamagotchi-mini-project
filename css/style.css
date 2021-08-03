@@ -26,4 +26,19 @@ ul {
   background-color: rgba(85, 85, 85, 0.534);
   border-radius: 50% 50% 42% 42%;
   margin-bottom: 20px;
+  position: relative;
+}
+
+.square {
+  height: 350px;
+  width: 350px;
+  margin-top: 180px;
+  background-color: white;
+  position: absolute;
+}
+.tamagotchi {
+  width: 200px;
+  height: 200px;
+  margin-top: 250px;
+  position: absolute;
 }
