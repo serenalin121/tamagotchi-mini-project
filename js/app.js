@@ -103,6 +103,8 @@ class Game {
     this.ageUp();
     this.dailyLife();
   }
+
+  // action buttons
 }
 
 // After the player enter the Tamagotchi's name, game begin!

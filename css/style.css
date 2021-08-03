@@ -14,3 +14,16 @@ ul {
   display: flex;
   flex-direction: column;
 }
+
+.t-display {
+  display: flex;
+  justify-content: center;
+}
+
+.oval {
+  height: 600px;
+  width: 550px;
+  background-color: rgba(85, 85, 85, 0.534);
+  border-radius: 50% 50% 42% 42%;
+  margin-bottom: 20px;
+}
