@@ -107,6 +107,8 @@ class Game {
       sleepiness.innerText = this.tamagotchi.sleepiness;
       const boredom = document.querySelector(".boredom");
       boredom.innerText = this.tamagotchi.boredom;
+
+      this.toMove();
       if (this.tamagotchi.death === true) {
         clearInterval(details);
       }
@@ -135,6 +137,21 @@ class Game {
   toPlay() {
     const play = document.querySelector(".play");
     play.addEventListener("click", () => this.tamagotchi.play());
+  }
+
+  toMove() {
+    const character = document.querySelector(".tamagotchi");
+    const position = [
+      "flex-start",
+      "flex-end",
+      "center",
+      "space-between",
+      "end",
+    ][Math.floor(Math.random() * 5)];
+    const img = document.querySelector(".character");
+    img.setAttribute("src", "images/V2.png");
+    character.style.justifyContent = position;
+    character.style.alignItems = position;
   }
 }
 

@@ -32,13 +32,26 @@ ul {
 .square {
   height: 350px;
   width: 350px;
-  margin-top: 180px;
+  margin-top: 150px;
   background-color: white;
   position: absolute;
 }
+
 .tamagotchi {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-top: 330px;
+  align-items: center;
+}
+
+.character {
   width: 200px;
   height: 200px;
-  margin-top: 250px;
   position: absolute;
+}
+
+.buttons {
+  position: absolute;
+  margin-top: 520px;
 }
