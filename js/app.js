@@ -147,11 +147,13 @@ class Game {
         const character = document.querySelector(".tamagotchi");
         character.style.justifyContent = "center";
         character.style.alignItems = "center";
+        document.querySelector(".details-list").style.color = "white";
         this.tamagotchi.sleeping = true;
       } else {
         this.tamagotchi.sleeping = false;
         const background = document.querySelector(".square");
         background.style.backgroundImage = "";
+        document.querySelector(".details-list").style.color = "black";
         this.toMove();
       }
     });

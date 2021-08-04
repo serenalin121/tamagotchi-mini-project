@@ -64,6 +64,16 @@ h5 {
   position: absolute;
 }
 
+.t-details {
+  position: absolute;
+}
+
+.details-list {
+  margin-top: 430px;
+  text-align: left;
+  margin-right: 250px;
+}
+
 .buttons {
   position: absolute;
   margin-top: 520px;
