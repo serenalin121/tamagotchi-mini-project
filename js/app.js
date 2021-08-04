@@ -33,6 +33,7 @@ class Tamagotchi {
     this.boredom = 1;
     this.age = 1;
     this.death = false;
+    this.sleeping = false;
   }
 
   feed() {
@@ -40,6 +41,7 @@ class Tamagotchi {
   }
   sleep() {
     this.sleepiness--;
+    this.sleeping = true;
   }
   play() {
     this.boredom--;
@@ -70,13 +72,13 @@ class Tamagotchi {
 let hasGameOver = false;
 
 class Game {
-  constructor(name, gameOverCallback) {
+  constructor(name) {
     this.tamagotchi = new Tamagotchi(name);
-    this.gameOverCallback = gameOverCallback;
     this.startGame();
   }
 
   ageUp() {
+    document.querySelector(".age").innerText = 1;
     const time = setInterval(() => {
       this.tamagotchi.age++;
       document.querySelector(".age").innerText = this.tamagotchi.age;
@@ -94,7 +96,7 @@ class Game {
       console.log(this.tamagotchi);
       if (this.tamagotchi.death === true) {
         clearInterval(daily);
-        this.gameOverCallback();
+        this.gameOver();
       }
     }, 1000);
   }
@@ -108,12 +110,13 @@ class Game {
       const boredom = document.querySelector(".boredom");
       boredom.innerText = this.tamagotchi.boredom;
 
-      this.toMove();
-      this.morph();
-
       if (this.tamagotchi.death === true) {
         clearInterval(details);
+        return;
       }
+
+      this.toMove();
+      this.morph();
     }, 500);
   }
 
@@ -133,16 +136,38 @@ class Game {
 
   toSleep() {
     const sleep = document.querySelector(".sleep");
-    sleep.addEventListener("click", () => this.tamagotchi.sleep());
+    sleep.addEventListener("click", () => {
+      if (!this.tamagotchi.sleeping) {
+        this.tamagotchi.sleep();
+        const background = document.querySelector(".square");
+        background.style.backgroundImage =
+          "url(https://ak.picdn.net/shutterstock/videos/16739053/thumb/11.jpg";
+        const img = document.querySelector(".character");
+        img.setAttribute("src", "images/sleep.png");
+        const character = document.querySelector(".tamagotchi");
+        character.style.justifyContent = "center";
+        character.style.alignItems = "center";
+        this.tamagotchi.sleeping = true;
+      } else {
+        this.tamagotchi.sleeping = false;
+        const background = document.querySelector(".square");
+        background.style.backgroundImage = "";
+        this.toMove();
+      }
+    });
   }
 
   toPlay() {
+    s;
     const play = document.querySelector(".play");
     play.addEventListener("click", () => this.tamagotchi.play());
   }
 
   toMove() {
     // animate my tamagotchi
+    if (this.tamagotchi.sleeping) {
+      return;
+    }
     const character = document.querySelector(".tamagotchi");
     const position = [
       "flex-start",
@@ -158,12 +183,22 @@ class Game {
     const img = document.querySelector(".character");
     img.setAttribute("src", `images/V${randomNum}.png`);
   }
+
   morph() {
     if (this.tamagotchi.age > 3) {
       const img = document.querySelector(".character");
       img.style.width = "220px";
       img.style.height = "220px";
     }
+  }
+
+  gameOver() {
+    const img = document.querySelector(".character");
+    img.setAttribute("src", `images/dead.png`);
+    // disable button
+    document.querySelector(".feed").disabled = true;
+    document.querySelector(".sleep").disabled = true;
+    document.querySelector(".play").disabled = true;
   }
 }
 
@@ -174,12 +209,6 @@ button.addEventListener("click", (e) => {
   const playerInput = document.querySelector(".name").value;
   document.querySelector(".t-name").innerText = playerInput;
   document.querySelector(".name").value = "";
-  const gameOver = () => {
-    console.log("Game Over");
-    document.querySelector(".feed").disabled = true;
-    document.querySelector(".sleep").disabled = true;
-    document.querySelector(".play").disabled = true;
-  }; // disable button,
 
-  const game = new Game(playerInput, gameOver);
+  new Game(playerInput);
 });

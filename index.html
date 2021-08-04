@@ -24,13 +24,11 @@
   <body>
     <h1>Welcome to Tamagotchi Game <i class="bi bi-controller"></i></h1>
     <form class="my-3 form">
-      <label for="name">What's name of your Tamagotchi?</label>
+      <label for="name">What's the name of your Tamagotchi?</label>
       <input type="text" class="name" name="name" placeholder="name" required />
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <div>
-      <h2 class="t-name"></h2>
-      <h3 class="t-age">Age: <span class="age"></span> years old</h3>
       <ul class="t-details">
         <li>Hunger: <span class="hunger"></span></li>
         <li>Sleepiness: <span class="sleepiness"></span></li>
@@ -38,6 +36,8 @@
       </ul>
     </div>
     <div class="t-display">
+      <h2 class="t-name"></h2>
+      <h5 class="t-age">Age: <span class="age"></span> years old</h3>
       <div class="oval"></div>
       <div class="square"></div>
       <div class="tamagotchi">

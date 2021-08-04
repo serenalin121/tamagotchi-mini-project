@@ -2,6 +2,8 @@ body {
   background-color: antiquewhite;
   text-align: center;
   font-family: "Roboto Mono", monospace;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
@@ -27,6 +29,17 @@ ul {
   border-radius: 50% 50% 42% 42%;
   margin-bottom: 20px;
   position: relative;
+}
+
+h2 {
+  position: absolute;
+  font-weight: 700;
+  margin-top: 50px;
+}
+
+h5 {
+  position: absolute;
+  margin-top: 100px;
 }
 
 .square {
