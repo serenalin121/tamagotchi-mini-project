@@ -109,6 +109,8 @@ class Game {
       boredom.innerText = this.tamagotchi.boredom;
 
       this.toMove();
+      this.morph();
+
       if (this.tamagotchi.death === true) {
         clearInterval(details);
       }
@@ -140,6 +142,7 @@ class Game {
   }
 
   toMove() {
+    // animate my tamagotchi
     const character = document.querySelector(".tamagotchi");
     const position = [
       "flex-start",
@@ -148,10 +151,19 @@ class Game {
       "space-between",
       "end",
     ][Math.floor(Math.random() * 5)];
-    const img = document.querySelector(".character");
-    img.setAttribute("src", "images/V2.png");
     character.style.justifyContent = position;
     character.style.alignItems = position;
+
+    const randomNum = Math.floor(Math.random() * 2) + 1;
+    const img = document.querySelector(".character");
+    img.setAttribute("src", `images/V${randomNum}.png`);
+  }
+  morph() {
+    if (this.tamagotchi.age > 3) {
+      const img = document.querySelector(".character");
+      img.style.width = "220px";
+      img.style.height = "220px";
+    }
   }
 }
 
