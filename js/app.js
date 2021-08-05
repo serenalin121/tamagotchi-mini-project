@@ -179,7 +179,7 @@ class Game {
 
   gameOver() {
     const img = document.querySelector(".character");
-    img.setAttribute("src", `images/dead.png`);
+    img.setAttribute("src", `images/dead 2.png`);
     // disable button
     document.querySelector(".feed").disabled = true;
     document.querySelector(".sleep").disabled = true;
