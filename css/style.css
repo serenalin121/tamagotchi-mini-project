@@ -25,7 +25,7 @@ ul {
 .oval {
   height: 600px;
   width: 550px;
-  background-color: rgba(85, 85, 85, 0.534);
+  background-color: rgba(29, 28, 28, 0.534);
   border-radius: 50% 50% 42% 42%;
   margin-bottom: 20px;
   position: relative;

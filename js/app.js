@@ -1,30 +1,3 @@
-/*      Plan
-    1. write game logic in Javescript file
-    2. add plain html
-    3. style the file ( when Tamagotchi hit age 5, grow the size?)
-*/
-
-/* 
-#1. Create a Tamagotchi class
-    constructor:
-      - name
-      - Hunger (1-10 scale)
-      - Sleepiness (1-10 scale)
-      - Boredom (1-10 scale)
-      - Age
-    method:
-      - feed your pet, (feed)
-      - turn off the lights, (sleep)
-      - play with your pet. (play)
-
-#2. Game class
-    - Increase your pet's age every x minutes
-    - Increase your pet's Hunger, Sleepiness, and Bored metrics on an interval of your choosing.
-
-Instatiate my Tamagochi
-
-*/
-
 class Tamagotchi {
   constructor(name) {
     this.name = name;
@@ -68,8 +41,6 @@ class Tamagotchi {
     }
   }
 }
-
-let hasGameOver = false;
 
 class Game {
   constructor(name) {
@@ -160,7 +131,6 @@ class Game {
   }
 
   toPlay() {
-    s;
     const play = document.querySelector(".play");
     play.addEventListener("click", () => this.tamagotchi.play());
   }
