@@ -56,7 +56,7 @@ class Game {
       if (this.tamagotchi.death === true) {
         clearInterval(time);
       }
-    }, 2000);
+    }, 3000);
   }
 
   dailyLife() {
@@ -69,7 +69,7 @@ class Game {
         clearInterval(daily);
         this.gameOver();
       }
-    }, 1000);
+    }, 2000);
   }
 
   showDetails() {
@@ -98,6 +98,8 @@ class Game {
     this.toFeed();
     this.toSleep();
     this.toPlay();
+
+    document.querySelector(".form").hidden = true;
   }
 
   toFeed() {
@@ -171,6 +173,7 @@ class Game {
     document.querySelector(".feed").disabled = true;
     document.querySelector(".sleep").disabled = true;
     document.querySelector(".play").disabled = true;
+    document.querySelector(".form").hidden = false;
   }
 }
 
@@ -181,6 +184,11 @@ button.addEventListener("click", (e) => {
   const playerInput = document.querySelector(".name").value;
   document.querySelector(".t-name").innerText = playerInput;
   document.querySelector(".name").value = "";
+
+  // enable button
+  document.querySelector(".feed").disabled = false;
+  document.querySelector(".sleep").disabled = false;
+  document.querySelector(".play").disabled = false;
 
   new Game(playerInput);
 });
