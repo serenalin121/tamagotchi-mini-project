@@ -10,13 +10,24 @@ class Tamagotchi {
   }
 
   feed() {
+    if (this.hunger <= 0) {
+      return;
+    }
     this.hunger--;
   }
+
   sleep() {
+    if (this.sleepiness <= 0) {
+      return;
+    }
     this.sleepiness--;
     this.sleeping = true;
   }
+
   play() {
+    if (this.boredom <= 0) {
+      return;
+    }
     this.boredom--;
   }
 
