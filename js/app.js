@@ -7,6 +7,8 @@ class Tamagotchi {
     this.age = 1;
     this.death = false;
     this.sleeping = false;
+    this.happy = false;
+    this.heartTimer = null;
   }
 
   feed() {
@@ -14,6 +16,7 @@ class Tamagotchi {
       return;
     }
     this.hunger--;
+    this.setHappy(true);
   }
 
   sleep() {
@@ -35,6 +38,7 @@ class Tamagotchi {
     this.hunger++;
     if (this.hunger > 9) {
       this.death = true;
+      this.setHappy(false);
     }
   }
 
@@ -50,6 +54,29 @@ class Tamagotchi {
     if (this.boredom > 9) {
       this.death = true;
     }
+  }
+
+  setHappy(value) {
+    this.happy = value;
+    if (value) {
+      this.showHeartTimer();
+    } else {
+      clearInterval(this.heartTimer);
+    }
+  }
+
+  showHeartTimer() {
+    if (this.heartTimer) {
+      clearInterval(this.heartTimer);
+    }
+    this.heartTimer = setInterval(() => {
+      const img = document.querySelector(".character");
+      const randomNum = Math.floor(Math.random() * 2) + 1;
+      img.setAttribute("src", `images/heart ${randomNum}.png`);
+      const character = document.querySelector(".tamagotchi");
+      character.style.justifyContent = "center";
+      character.style.alignItems = "center";
+    }, 200);
   }
 }
 
@@ -99,7 +126,7 @@ class Game {
 
       this.toMove();
       this.morph();
-    }, 500);
+    }, 1000);
   }
 
   startGame() {
@@ -115,7 +142,17 @@ class Game {
 
   toFeed() {
     const feed = document.querySelector(".feed");
-    feed.addEventListener("click", () => this.tamagotchi.feed());
+
+    feed.addEventListener("click", () => {
+      if (!this.tamagotchi.happy) {
+        this.tamagotchi.feed();
+        console.log("Thank you for feeding me");
+      } else {
+        this.tamagotchi.setHappy(false);
+        this.toMove();
+        console.log("unfeed");
+      }
+    });
   }
 
   toSleep() {
@@ -150,7 +187,7 @@ class Game {
 
   toMove() {
     // animate my tamagotchi
-    if (this.tamagotchi.sleeping) {
+    if (this.tamagotchi.sleeping || this.tamagotchi.happy) {
       return;
     }
     const character = document.querySelector(".tamagotchi");
