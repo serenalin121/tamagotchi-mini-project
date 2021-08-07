@@ -68,6 +68,11 @@ class Tamagotchi {
     if (this.heartTimer) {
       clearInterval(this.heartTimer);
     }
+
+    if (this.death) {
+      return;
+    }
+
     this.heartTimer = setInterval(() => {
       const background = document.querySelector(".square");
       background.style.backgroundImage = "";
@@ -103,8 +108,8 @@ class Tamagotchi {
   }
 
   hasDied() {
-    this.death = true;
     clearInterval(this.heartTimer);
+    this.death = true;
   }
 }
 
