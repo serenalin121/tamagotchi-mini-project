@@ -155,10 +155,12 @@ class Game {
 
       this.toMove();
       this.morph();
-    }, 1000);
+    }, 500);
   }
 
   startGame() {
+    this.tamagotchi.turnOffLight(false);
+
     this.ageUp();
     this.dailyLife();
     this.showDetails();
