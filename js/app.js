@@ -24,7 +24,7 @@ class Tamagotchi {
       return;
     }
     this.sleepiness--;
-    this.sleeping = true;
+    this.turnOffLight(true);
   }
 
   play() {
@@ -37,22 +37,21 @@ class Tamagotchi {
   increaseHunger() {
     this.hunger++;
     if (this.hunger > 9) {
-      this.death = true;
-      this.setHappy(false);
+      this.hasDied();
     }
   }
 
   increaseSleepiness() {
     this.sleepiness++;
     if (this.sleepiness > 9) {
-      this.death = true;
+      this.hasDied();
     }
   }
 
   increaseBoredom() {
     this.boredom++;
     if (this.boredom > 9) {
-      this.death = true;
+      this.hasDied();
     }
   }
 
@@ -70,13 +69,42 @@ class Tamagotchi {
       clearInterval(this.heartTimer);
     }
     this.heartTimer = setInterval(() => {
+      const background = document.querySelector(".square");
+      background.style.backgroundImage = "";
+      document.querySelector(".details-list").style.color = "black";
       const img = document.querySelector(".character");
       const randomNum = Math.floor(Math.random() * 2) + 1;
       img.setAttribute("src", `images/heart ${randomNum}.png`);
       const character = document.querySelector(".tamagotchi");
       character.style.justifyContent = "center";
       character.style.alignItems = "center";
-    }, 200);
+    }, 300);
+  }
+
+  turnOffLight(value) {
+    this.sleeping = value;
+    if (value) {
+      const background = document.querySelector(".square");
+      background.style.backgroundImage =
+        "url(https://ak.picdn.net/shutterstock/videos/16739053/thumb/11.jpg";
+      const img = document.querySelector(".character");
+      img.setAttribute("src", "images/sleep.png");
+      const character = document.querySelector(".tamagotchi");
+      character.style.justifyContent = "center";
+      character.style.alignItems = "center";
+      document.querySelector(".details-list").style.color = "white";
+      this.sleeping = true;
+    } else {
+      this.sleeping = false;
+      const background = document.querySelector(".square");
+      background.style.backgroundImage = "";
+      document.querySelector(".details-list").style.color = "black";
+    }
+  }
+
+  hasDied() {
+    this.death = true;
+    clearInterval(this.heartTimer);
   }
 }
 
@@ -89,11 +117,12 @@ class Game {
   ageUp() {
     document.querySelector(".age").innerText = 1;
     const time = setInterval(() => {
-      this.tamagotchi.age++;
-      document.querySelector(".age").innerText = this.tamagotchi.age;
       if (this.tamagotchi.death === true) {
         clearInterval(time);
+        return;
       }
+      this.tamagotchi.age++;
+      document.querySelector(".age").innerText = this.tamagotchi.age;
     }, 3000);
   }
 
@@ -144,13 +173,14 @@ class Game {
     const feed = document.querySelector(".feed");
 
     feed.addEventListener("click", () => {
+      if (this.tamagotchi.sleeping) {
+        this.tamagotchi.turnOffLight(false);
+      }
       if (!this.tamagotchi.happy) {
         this.tamagotchi.feed();
-        console.log("Thank you for feeding me");
       } else {
         this.tamagotchi.setHappy(false);
         this.toMove();
-        console.log("unfeed");
       }
     });
   }
@@ -158,23 +188,13 @@ class Game {
   toSleep() {
     const sleep = document.querySelector(".sleep");
     sleep.addEventListener("click", () => {
+      if (this.tamagotchi.happy) {
+        this.tamagotchi.setHappy(false);
+      }
       if (!this.tamagotchi.sleeping) {
         this.tamagotchi.sleep();
-        const background = document.querySelector(".square");
-        background.style.backgroundImage =
-          "url(https://ak.picdn.net/shutterstock/videos/16739053/thumb/11.jpg";
-        const img = document.querySelector(".character");
-        img.setAttribute("src", "images/sleep.png");
-        const character = document.querySelector(".tamagotchi");
-        character.style.justifyContent = "center";
-        character.style.alignItems = "center";
-        document.querySelector(".details-list").style.color = "white";
-        this.tamagotchi.sleeping = true;
       } else {
-        this.tamagotchi.sleeping = false;
-        const background = document.querySelector(".square");
-        background.style.backgroundImage = "";
-        document.querySelector(".details-list").style.color = "black";
+        this.tamagotchi.turnOffLight(false);
         this.toMove();
       }
     });
@@ -182,7 +202,15 @@ class Game {
 
   toPlay() {
     const play = document.querySelector(".play");
-    play.addEventListener("click", () => this.tamagotchi.play());
+    play.addEventListener("click", () => {
+      if (this.tamagotchi.happy) {
+        this.tamagotchi.setHappy(false);
+      }
+      if (this.tamagotchi.sleeping) {
+        this.tamagotchi.turnOffLight(false);
+      }
+      this.tamagotchi.play();
+    });
   }
 
   toMove() {
@@ -226,8 +254,8 @@ class Game {
 }
 
 // After the player enter the Tamagotchi's name, game begin!
-const button = document.querySelector(".btn");
-button.addEventListener("click", (e) => {
+const button = document.querySelector(".form");
+button.addEventListener("submit", (e) => {
   e.preventDefault();
   const playerInput = document.querySelector(".name").value;
   document.querySelector(".t-name").innerText = playerInput;
