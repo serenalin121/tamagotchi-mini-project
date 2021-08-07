@@ -131,7 +131,6 @@ class Game {
       this.tamagotchi.increaseHunger();
       this.tamagotchi.increaseSleepiness();
       this.tamagotchi.increaseBoredom();
-      console.log(this.tamagotchi);
       if (this.tamagotchi.death === true) {
         clearInterval(daily);
         this.gameOver();
